@@ -1,14 +1,17 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
-  Button,
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Pressable
+  Pressable,
+  Switch
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { Button } from 'react-native-paper'
 
 import PostBox from './components/post';
 import InfoScreen from './components/info';
@@ -22,9 +25,12 @@ function HomeScreen({ navigation }) {
         {' '}
       </Text>
       <Button
-        title="Go to Top 10 Epic Hot"
+        icon="fire"
+        mode="contained"
         onPress={() => navigation.navigate('TOP 10 HOT PEOPLE')}
-      />
+      >
+        GO TO TOP 10 HOT
+      </Button>
       <Text style={styles.helpText}>Long press on images for some info 😩.</Text>
     </View>
   );
@@ -240,26 +246,71 @@ function AdeebScreen() {
   )
 }
 
-const Stack = createStackNavigator();
+
+function DevInfo() {
+  return (
+    <InfoScreen
+      src="https://instagram.fdac24-1.fna.fbcdn.net/v/t51.2885-15/e35/140323829_733364847569148_5741331271629730347_n.jpg?_nc_ht=instagram.fdac24-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=-ypZC_cT020AX9t9tAu&tp=1&oh=2ec66600480e309f92351dde39792cbe&oe=6034A932&ig_cache_key=MjQ5MTcwNzAwMDAxMTY2NzE3NA%3D%3D.2"
+      name="Tahlil"
+      info='Hello I am the developer of this app. I didnt feel like I deserved to be on that list since im no where near the big bren and greatness of the top 10 epics. So I put myself on another slide. There is nothing figuratively special about me tbh. I mean nothing that i know of.'
+    />
+  )
+}
+
+const Tab = createBottomTabNavigator();
+
 
 function App() {
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="HOT MEN OF THE YEAR" component={HomeScreen} />
-        <Stack.Screen name="TOP 10 HOT PEOPLE" component={DetailsScreen} />
-        <Stack.Screen name="Jaglul" component={JaguScreen} />
-        <Stack.Screen name="Bishwajid" component={BishwaScreen} />
-        <Stack.Screen name="Nehan" component={NehanScreen} />
-        <Stack.Screen name="Arthob" component={ArthobScreen} />
-        <Stack.Screen name="Anas" component={AnasScreen} />
-        <Stack.Screen name="Rehman" component={RehmanScreen} />
-        <Stack.Screen name="Ridwan" component={RidwanScreen} />
-        <Stack.Screen name="Safwan" component={SafwanScreen} />
-        <Stack.Screen name="Anwar" component={AnwarScreen} />
-        <Stack.Screen name="Adeeb" component={AdeebScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator
+
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'flame' : 'flame-outline';
+            } else if (route.name === 'Developer Info') {
+              iconName = focused ? 'information-circle' : 'information-circle-outline'
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#6200ee',
+          inactiveTintColor: 'gray',
+        }}
+
+      >
+        <Tab.Screen name="Home" component={EpicMoment} />
+        <Tab.Screen name="Developer Info" component={DevInfo} />
+      </Tab.Navigator>
     </NavigationContainer>
+  );
+}
+
+
+const Stack = createStackNavigator();
+
+function EpicMoment() {
+  return (
+    <Stack.Navigator initialRouteName="Hot 10 Section">
+      <Stack.Screen name="HOT MEN OF THE YEAR" component={HomeScreen} />
+      <Stack.Screen name="TOP 10 HOT PEOPLE" component={DetailsScreen} />
+      <Stack.Screen name="Jaglul" component={JaguScreen} />
+      <Stack.Screen name="Bishwajid" component={BishwaScreen} />
+      <Stack.Screen name="Nehan" component={NehanScreen} />
+      <Stack.Screen name="Arthob" component={ArthobScreen} />
+      <Stack.Screen name="Anas" component={AnasScreen} />
+      <Stack.Screen name="Rehman" component={RehmanScreen} />
+      <Stack.Screen name="Ridwan" component={RidwanScreen} />
+      <Stack.Screen name="Safwan" component={SafwanScreen} />
+      <Stack.Screen name="Anwar" component={AnwarScreen} />
+      <Stack.Screen name="Adeeb" component={AdeebScreen} />
+    </Stack.Navigator>
   );
 }
 
@@ -284,6 +335,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontStyle: 'Roboto'
   },
+  switchContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  settingsText: {
+    paddingLeft: 15,
+    fontWeight: 'bold',
+  }
 });
 
 export default App;
