@@ -5,9 +5,8 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
-  Switch
 } from 'react-native';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -335,16 +334,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontStyle: 'Roboto'
   },
-  switchContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  settingsText: {
-    paddingLeft: 15,
-    fontWeight: 'bold',
-  }
 });
 
 export default App;
