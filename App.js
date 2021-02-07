@@ -270,9 +270,9 @@ function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused ? 'flame' : 'flame-outline';
+              iconName = focused ? 'md-flame' : 'md-flame-outline';
             } else if (route.name === 'Developer Info') {
-              iconName = focused ? 'information-circle' : 'information-circle-outline'
+              iconName = focused ? 'md-body' : 'md-body-outline'
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
